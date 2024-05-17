@@ -32,22 +32,40 @@ while 1 do love.event.push('stdin', io.read('*line')) end") :start))
 
   ; ---- point
   (love.graphics.points point.x point.y)
+)
+
+(fn apply_g [vx]
+  (if 
+    (< (math.abs vx) 10)
+      0
+    (< vx 1)
+      (+ vx 1)
+    (> vx 1)
+      (- vx 1)
   )
+)
 
 (var d_radius 100)
 (var radius 100)
-
 (var skew 2)
-(var force 1)
 (fn love.update [dt]
-  (set ticker (+ ticker dt))
-  (set player.x (+ point.x (* (/ (math.cos ticker) skew) radius)))
-  (set player.y (+ point.y (* (math.sin ticker) radius)))
 
+  (local r_f (+ radius player.vx))
+  (set ticker (+ ticker dt))
+  (set player.x (+ point.x (* (/ (math.cos ticker) skew) r_f)))
+  (set player.y (+ point.y (* (math.sin ticker) r_f)))
+
+  (if 
+    (love.keyboard.isDown "left")
+      (set player.vx (+ player.vx (* dt 100)))
+    (love.keyboard.isDown "right")
+      (set player.vx (- player.vx (* dt 40)))
+    (set player.vx (apply_g player.vx))
+  )
+
+  (print player.vx)
 )
 
 (fn love.keypressed [key]
   (when (= key "escape") (love.event.quit))
-  (when (= key "a") (set force (+ force 10)))
-  (when (= key "d") (set force (- force 10)))
 )
