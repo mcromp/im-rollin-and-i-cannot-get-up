@@ -37,7 +37,7 @@ while 1 do love.event.push('stdin', io.read('*line')) end") :start))
 (fn apply_g [vx]
   (if 
     (< (math.abs vx) 10)
-      0
+      1
     (< vx 1)
       (+ vx 1)
     (> vx 1)
@@ -56,14 +56,12 @@ while 1 do love.event.push('stdin', io.read('*line')) end") :start))
   (set player.y (+ point.y (* (math.sin ticker) r_f)))
 
   (if 
-    (love.keyboard.isDown "left")
+    (and (love.keyboard.isDown "left") (< player.vx 50))
       (set player.vx (+ player.vx (* dt 100)))
-    (love.keyboard.isDown "right")
+    (and (love.keyboard.isDown "right") (> player.vx -50))
       (set player.vx (- player.vx (* dt 40)))
     (set player.vx (apply_g player.vx))
   )
-
-  (print player.vx)
 )
 
 (fn love.keypressed [key]
