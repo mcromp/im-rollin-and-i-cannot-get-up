@@ -15,8 +15,7 @@
       (> vx 1) (- vx 20)))
 
 (fn move [player track dt]
-  (local force (+ track.r player.vx)) ; (print force) 
-  (if (not (= player.vx 1)) (print player.vx))
+  (local force (+ track.r player.vx))
   (set player.x (+ _center.x (* (/ (math.cos ticker) track.skew) force)))
   (set player.y (+ _center.y (* (math.sin ticker) force))))
 
@@ -54,5 +53,25 @@
         (let [hit_dir (if (> player.hit_dir_x 0) (* player.max_move_amount 2)
                           (< player.hit_dir_x 0) (- (* player.max_move_amount 2)))]
           (set player.vx (+ player.vx (* dt hit_dir))))))
+
+(var switch2 true)
+
+(fn crash [player]
+  (set switch2 false)
+  (set player.input_pause? true)
+  (set speed 12)
+  (timer.after 0.4 (fn [] (set player.input_pause? false)
+                     (set speed 3)))
+  (timer.after 0.7
+               (fn []
+                 (set speed 6)
+                 (set switch true)
+                 (set player.state ENUMS.p_state.moving))))
+
+(tset service ENUMS.p_state.crashing
+      (fn [player track dt]
+        (set ticker (+ ticker (/ dt speed)))
+        (when switch2 (crash player))
+        (move player track dt)))
 
 service
