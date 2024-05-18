@@ -12,11 +12,10 @@
              :h 64
              :w 64
              :vx 0
-             :vy 1
              :x _center.x
              :y _center.y
-             :move_force 600
              :state ENUMS.p_state.moving
+             :move_force 600
              :hit_dir_x 0
              :max_move_amount 300})
 
@@ -60,4 +59,5 @@ while 1 do love.event.push('stdin', io.read('*line')) end") :start))
 
 (fn love.keypressed [key]
   (when (= key :escape) (love.event.quit))
-  (when (= key :a) (set player.state ENUMS.p_state.moving)))
+  (when (= key :a) (camera.shake))
+  )
