@@ -1,5 +1,5 @@
 {
-  "Lua.diagnostics.globals": ["love", "fennel", "_W"],
+  "Lua.diagnostics.globals": ["love", "fennel", "_W", "_center"],
   "Lua.runtime.version": "Lua 5.1",
   "Lua.workspace.ignoreDir": ["lib/*"]
 }
