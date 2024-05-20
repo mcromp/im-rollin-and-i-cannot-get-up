@@ -1,9 +1,9 @@
 (local ENUMS (require :enums.fnl))
+(local camera (require :camera.fnl))
 (local level_data (. (. (require :levels.fnl) :data) :movement))
 (local service {})
 
 (var ticker 0)
-
 (fn apply_gravity [vx ?amt]
   (local _d (. level_data _Gstate.level))
   (local gravity (* _d.gravity (or ?amt 1)))
@@ -11,7 +11,7 @@
       (< vx 1) (+ vx gravity)
       (> vx 1) (- vx gravity)))
 
-(fn slower_speed [s] (/ s 3))
+(fn slower_speed [s] (/ s 5))
 (fn fasten_speed [s] (* s 2))
 
 (fn move_on_track [entity track dt]
@@ -69,6 +69,7 @@
   (local _d (. level_data _Gstate.level))
   (local normal_speed _d.speed)
   (set can_crash? false)
+  (camera.shake)
   (set entity.input_pause? true)
   (set entity.speed (fasten_speed normal_speed))
   (timer.after 0.4
