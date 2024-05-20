@@ -1,7 +1,9 @@
 (local ENUMS (require :enums.fnl))
 (local service {})
 (var shake {:x 0 :y 0})
-(set service.scale 2.5)
+(set service.scale 5)
+
+(var scale_temp 1)
 
 (set service.shake
      (fn []
@@ -20,14 +22,19 @@
              dy (- target.y (/ (/ _W.h 2) (- scale shake.y)))]
          (love.graphics.scale scale)
          (love.graphics.translate (- dx) (- dy))
+         (when (not (= service.scale scale_temp))
+           (set scale_temp service.scale)
+           (let [w _W.w h _W.h]
+          ;  (_G.map:resize (+ w w) (+ h h))))
+           (_G.map:resize (+ w w) (+ h h ))))
          (_G.map:draw (- dx) (- dy) scale scale))))
 
 (var player_state ENUMS.p_state.moving)
-(set service.update (fn [player]
-                      (if (not (= player.state player_state))
-                          (set player_state player.state)
-                          (if (or (= player_state ENUMS.p_state.bouncing)
-                                  (= player_state ENUMS.p_state.crashing))
-                              (service.shake)))))
+; (set service.update (fn [player]
+;                       (if (not (= player.state player_state))
+;                           (set player_state player.state)
+;                           (if (or (= player_state ENUMS.p_state.bouncing)
+;                                   (= player_state ENUMS.p_state.crashing))
+;                               (service.shake)))))
 
 service

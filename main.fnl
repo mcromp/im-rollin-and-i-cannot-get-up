@@ -20,7 +20,7 @@
              :max_move_amount 300})
 
 (var point {:x _center.x :y _center.y})
-(set _G.map (sti :assets/mymap.lua))
+(set _G.map (sti :map/map.lua))
 (var test_block {:x 1600 :y 700 :w 800 :h 200 :state :ok})
 
 (fn love.load []
@@ -45,13 +45,12 @@ while 1 do love.event.push('stdin', io.read('*line')) end") :start))
   (graphics.track track))
 
 (fn love.update [dt]
-  (when test_block (print test_block.state))
+  ; (when test_block (print test_block.state))
   (when _G.map (_G.map:update dt))
   (when (and test_block (= test_block.state :to_dead))
     ((fn []
        (set test_block.state :dead)
-       (timer.after 0.2 (fn []
-                          (print "hi mom")
+       (timer.after 0.8 (fn []
                           (set test_block nil))))))
   ;; player movement 
   (let [f (. player_movement_service player.state)] (if f (f player track dt)))
@@ -62,8 +61,11 @@ while 1 do love.event.push('stdin', io.read('*line')) end") :start))
         (set player.hit_dir_x (utils.get_x_dir player center))
         (set test_block.state :to_dead)
         (set player.state ENUMS.p_state.crashing)))
-  (timer.update dt)
-  (camera.update player))
+  (timer.update dt))
 
 (fn love.keypressed [key]
-  (when (= key :escape) (love.event.quit)))
+  (print camera.scale)
+  (when (= key :escape) (love.event.quit))
+  (when (= key :i) (set camera.scale (+ camera.scale 1)))
+  (when (= key :p) (set camera.scale 1))
+  (when (= key :o) (set camera.scale (- camera.scale 1))))

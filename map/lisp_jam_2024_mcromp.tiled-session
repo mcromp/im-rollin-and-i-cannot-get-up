@@ -1,0 +1,44 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "map.tmx": {
+            "scale": 0.2207,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1221.1146352514727,
+                "y": 1993.656547349343
+            }
+        },
+        "map.tmx#tileset": {
+            "scaleInDock": 1
+        },
+        "ui_bg.tsx": {
+            "scaleInDock": 0.1744,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "/Users/m___/lisp_jam/map",
+    "last.imagePath": "/Users/m___/lisp_jam/map",
+    "map.height": 70,
+    "map.lastUsedExportFilter": "Lua files (*.lua)",
+    "map.lastUsedFormat": "tmx",
+    "map.width": 50,
+    "openFiles": [
+    ],
+    "project": "lisp_jam_2024_mcromp.tiled-project",
+    "recentFiles": [
+        "map.tmx",
+        "ui_bg.tsx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFormat": "tsx"
+}
