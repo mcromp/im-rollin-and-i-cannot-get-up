@@ -1,5 +1,6 @@
 _W = { w = 1024, h = 768 }
 _center = { x = 1600, y = 2240 }
+_Gstate = { level = 1 }
 function love.conf(t)
   t.window.width = _W.w
   t.window.height = _W.h

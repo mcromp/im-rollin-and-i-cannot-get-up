@@ -5,7 +5,8 @@
     "_W",
     "_center",
     "vector",
-    "timer"
+    "timer",
+    "_Gstate"
   ],
   "Lua.runtime.version": "Lua 5.1",
   "Lua.workspace.ignoreDir": ["lib/*"]

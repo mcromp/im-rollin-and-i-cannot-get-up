@@ -1,77 +1,89 @@
 (local ENUMS (require :enums.fnl))
+(local level_data (. (. (require :levels.fnl) :data) :movement))
 (local service {})
 
 (var ticker 0)
-(var speed 6)
-(var can_move true)
 
-(fn apply_gravity [vx]
+(fn apply_gravity [vx ?amt]
+  (local _d (. level_data _Gstate.level))
+  (local gravity (* _d.gravity (or ?amt 1)))
   (if (< (math.abs vx) 10) 1
-      (< vx 1) (+ vx 5)
-      (> vx 1) (- vx 5)))
+      (< vx 1) (+ vx gravity)
+      (> vx 1) (- vx gravity)))
 
-(fn apply_super_gravity [vx]
-  (if (< vx 1) (+ vx 20)
-      (> vx 1) (- vx 20)))
+(fn slower_speed [s] (/ s 3))
+(fn fasten_speed [s] (* s 2))
 
-(fn move [player track dt]
-  (local force (+ track.r player.vx))
-  (set player.x (+ _center.x (* (/ (math.cos ticker) track.skew) force)))
-  (set player.y (+ _center.y (* (math.sin ticker) force))))
+(fn move_on_track [entity track dt]
+  (local force (+ track.r entity.vx))
+  (set entity.x (+ _center.x (* (/ (math.cos ticker) track.skew) force)))
+  (set entity.y (+ _center.y (* (math.sin ticker) force))))
 
+;; ###### MOVING 
 (tset service ENUMS.p_state.moving
-      (fn [player track dt]
-        (set ticker (+ ticker (/ dt speed)))
-        (move player track dt)
-        (if (and (love.keyboard.isDown :up)
-                 (< player.vx player.max_move_amount) (not player.input_pause?))
-            (set player.vx (+ player.vx (* dt player.move_force)))
-            (and (love.keyboard.isDown :down)
-                 (> player.vx (- player.max_move_amount))
-                 (not player.input_pause?))
-            (set player.vx (- player.vx (* dt player.move_force)))
-            (set player.vx (apply_gravity player.vx)))))
+      (fn [entity track dt]
+        (local _d (. level_data _Gstate.level))
+        (print _d.speed)
+        (local max_move_amount _d.max_move_amount)
+        (local move_force _d.move_force)
+        (set ticker (+ ticker (/ dt entity.speed)))
+        (move_on_track entity track dt)
+        (if (and (love.keyboard.isDown :up) (< entity.vx max_move_amount)
+                 (not entity.input_pause?))
+            (set entity.vx (+ entity.vx (* dt move_force)))
+            (and (love.keyboard.isDown :down) (> entity.vx (- max_move_amount))
+                 (not entity.input_pause?))
+            (set entity.vx (- entity.vx (* dt move_force)))
+            (set entity.vx (apply_gravity entity.vx)))))
 
-(var switch true)
-
-(fn bounce [player]
-  (set switch false)
-  (set player.input_pause? true)
-  (set speed 2)
-  (timer.after 1 (fn [] (set player.input_pause? false)
-                   (set speed 6)))
+;; ###### BOUNCING 
+(var can_bounce? true)
+(fn bounce [entity]
+  (local _d (. level_data _Gstate.level))
+  (local normal_speed (. _d :speed))
+  (set can_bounce? false)
+  (set entity.input_pause? true)
+  (let [slow_speed (/ normal_speed 3)]
+    (set entity.speed slow_speed))
+  (timer.after 1 (fn [] (set entity.input_pause? false)
+                   (set entity.speed normal_speed)))
   (timer.after 0.4
                (fn []
-                 (set switch true)
-                 (set player.state ENUMS.p_state.moving))))
+                 (set can_bounce? true)
+                 (set entity.state ENUMS.p_state.moving))))
 
 (tset service ENUMS.p_state.bouncing
-      (fn [player track dt]
-        (set ticker (- ticker (/ dt speed)))
-        (when switch (bounce player))
-        (move player track dt)
-        (let [hit_dir (if (> player.hit_dir_x 0) (* player.max_move_amount 2)
-                          (< player.hit_dir_x 0) (- (* player.max_move_amount 2)))]
-          (set player.vx (+ player.vx (* dt hit_dir))))))
+      (fn [entity track dt]
+        (local _d (. level_data _Gstate.level))
+        (let [speed (. _d :speed)]
+          (set ticker (- ticker (/ dt entity.speed))))
+        (when can_bounce? (bounce entity))
+        (move_on_track entity track dt)
+        (let [hit_dir (if (> entity.hit_dir_x 0) (* entity.max_move_amount 2)
+                          (< entity.hit_dir_x 0) (- (* entity.max_move_amount 2)))]
+          (set entity.vx (+ entity.vx (* dt hit_dir))))))
 
-(var switch2 true)
-
-(fn crash [player]
-  (set switch2 false)
-  (set player.input_pause? true)
-  (set speed 12)
-  (timer.after 0.4 (fn [] (set player.input_pause? false)
-                     (set speed 3)))
+;; ###### CRASHING 
+(var can_crash? true)
+(fn crash [entity]
+  (local _d (. level_data _Gstate.level))
+  (local normal_speed _d.speed)
+  (set can_crash? false)
+  (set entity.input_pause? true)
+  (set entity.speed (fasten_speed normal_speed))
+  (timer.after 0.4
+               (fn [] (set entity.input_pause? false)
+                 (set entity.speed (slower_speed normal_speed))))
   (timer.after 0.7
                (fn []
-                 (set speed 6)
-                 (set switch true)
-                 (set player.state ENUMS.p_state.moving))))
+                 (set entity.speed normal_speed)
+                 (set can_crash? true)
+                 (set entity.state ENUMS.p_state.moving))))
 
 (tset service ENUMS.p_state.crashing
-      (fn [player track dt]
-        (set ticker (+ ticker (/ dt speed)))
-        (when switch2 (crash player))
-        (move player track dt)))
+      (fn [entity track dt]
+        (set ticker (+ ticker (/ dt entity.speed)))
+        (move_on_track entity track dt)
+        (when can_crash? (crash entity))))
 
 service

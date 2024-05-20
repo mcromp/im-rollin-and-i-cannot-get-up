@@ -1,3 +1,4 @@
+(local aa {:qq "himom"})
 (require :globals.fnl)
 (local sti (require :lib.sti))
 (local ENUMS (require :enums.fnl))
@@ -5,7 +6,6 @@
 (local camera (require :camera.fnl))
 (local graphics (require :graphics.fnl))
 (local utils (require :utils.fnl))
-
 (local track {:r 2000 :skew 2})
 (var player {:name :player
              :input_pause? false
@@ -15,13 +15,14 @@
              :x _center.x
              :y _center.y
              :state ENUMS.p_state.moving
-             :move_force 600
              :hit_dir_x 0
-             :max_move_amount 300})
+             :speed 3
+             })
+
+(set _G.map (sti :map/map.lua))
 
 (var point {:x _center.x :y _center.y})
-(set _G.map (sti :map/map.lua))
-(var test_block {:x 1600 :y 700 :w 800 :h 200 :state :ok})
+(var test_block {:x 1568 :y 2976 :w 800 :h 400 :state :ok})
 
 (fn love.load []
   ;; start a thread listening on stdin
@@ -45,8 +46,8 @@ while 1 do love.event.push('stdin', io.read('*line')) end") :start))
   (graphics.track track))
 
 (fn love.update [dt]
-  ; (when test_block (print test_block.state))
   (when _G.map (_G.map:update dt))
+  ;; enemy
   (when (and test_block (= test_block.state :to_dead))
     ((fn []
        (set test_block.state :dead)
@@ -64,8 +65,8 @@ while 1 do love.event.push('stdin', io.read('*line')) end") :start))
   (timer.update dt))
 
 (fn love.keypressed [key]
-  (print camera.scale)
   (when (= key :escape) (love.event.quit))
+  ;; debugging remove for production
   (when (= key :i) (set camera.scale (+ camera.scale 1)))
   (when (= key :p) (set camera.scale 1))
   (when (= key :o) (set camera.scale (- camera.scale 1))))
