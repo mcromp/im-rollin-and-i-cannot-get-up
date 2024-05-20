@@ -1,6 +1,5 @@
 (local ENUMS (require :enums.fnl))
 (local level_camera (. (. (require :levels.fnl) :data) :camera))
-(print level_camera)
 
 (var shake {:x 0 :y 0})
 (local service {})
