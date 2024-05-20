@@ -1,4 +1,3 @@
-(local aa {:qq "himom"})
 (require :globals.fnl)
 (local sti (require :lib.sti))
 (local ENUMS (require :enums.fnl))

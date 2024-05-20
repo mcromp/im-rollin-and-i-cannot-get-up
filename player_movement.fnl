@@ -1,6 +1,7 @@
 (local ENUMS (require :enums.fnl))
 (local camera (require :camera.fnl))
 (local level_data (. (. (require :levels.fnl) :data) :movement))
+
 (local service {})
 
 (var ticker 0)
@@ -23,7 +24,7 @@
 (tset service ENUMS.p_state.moving
       (fn [entity track dt]
         (local _d (. level_data _Gstate.level))
-        (print _d.speed)
+        (when (not (= entity.speed _d.speed)) (set entity.speed _d.speed))
         (local max_move_amount _d.max_move_amount)
         (local move_force _d.move_force)
         (set ticker (+ ticker (/ dt entity.speed)))
