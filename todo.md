@@ -1,0 +1,31 @@
+[ ] - FOOD
+  [ ] - generation
+  [ ] - collision
+  [ ] - pickup
+[ ] - BUILDING 
+  [ ] - generation
+  [ ] - collision
+  [ ] - crash
+[ ] - PLAYER 
+  [ ] - xp
+  [ ] - level up
+
+UI
+[ ] animation
+[ ] start screen 
+[ ] MAYBE - intro scene
+[ ] ending scene
+[ ] HUD to show xp
+[ ] make buildings
+[ ] make char animation
+[ ] make food
+
+SFX 
+[ ] - crash sound
+[ ] - level up sound
+[ ] - bounce sound
+[ ] - rolling sound
+[ ] - MUSIC
+  [ ] - intro
+  [ ] - ending
+  [ ] - game
