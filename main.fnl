@@ -1,15 +1,12 @@
 (require :globals.fnl)
 
-(local ENUMS (require :enums.fnl))
-
 (local player (require :entities/player.fnl))
 (local track (require :entities/track.fnl))
-(local graphics (require :ui/graphics.fnl))
 (local camera (require :camera.fnl))
 (local utils (require :utils.fnl))
 
-(local scenes {:game (require "scene/game.fnl")
-               :title (require "scene/title.fnl")
+(local scenes {:game (require "scenes/game.fnl")
+               :title (require "scenes/title.fnl")
                :credits :TODO})
 
 (fn love.load []
@@ -25,7 +22,7 @@ while 1 do love.event.push('stdin', io.read('*line')) end") :start))
     (print (if ok (fennel.view val) val))))
 
 (fn love.draw []
-  (when _G.map (camera.draw player))
+  (when (and _G.map player) (camera.draw player))
   (when _G.scene (_G.scene.draw)))
 
 (fn love.update [dt]
