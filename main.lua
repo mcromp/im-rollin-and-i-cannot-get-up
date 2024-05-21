@@ -1,6 +1,8 @@
 fennel = require("lib.fennel")
 vector = require("lib.hump.vector")
 timer = require("lib.hump.timer")
+tprint = require("lib.tprint")
+
 
 debug.traceback = fennel.traceback
 table.insert(package.loaders, function(filename)
