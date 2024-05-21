@@ -1,7 +1,7 @@
 [ ] - FOOD
   [x] - generation
-  [ ] - collision
-  [ ] - pickup
+  [x] - collision
+  [x] - pickup
 [ ] - BUILDING 
   [ ] - generation
   [ ] - collision

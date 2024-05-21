@@ -28,17 +28,31 @@
   ;; food generation 
   (local current_level _Gstate.level)
   (let [desired_food_amount (. food_amounts current_level)]
-    (food_service.handle_generation foods desired_food_amount data))
-  ;; collisions  ; (if (and test_block (= test_block.state :ok) (_G.cols? player test_block))
-  ;     (let [center {:x (+ test_block.x (/ test_block.w 2)) ;                   :y (+ test_block.y (/ test_block.h 2))}]
-  ;       (set player.hit_dir_x (utils.get_x_dir player center)) ;       (set test_block.state :to_dead) ;       (set player.state ENUMS.p_state.crashing)))
-  )
+    (food_service.handle_generation foods desired_food_amount data)) ; food collision  
+  ;; food 
+  (local f_to_kill [])
+  (each [k food (pairs foods)]
+    (let [f (. food_service food.state)] (if f (f food dt)))
+    ;; collision
+    (when (and (= food.state :moving) (_G.cols? player food))
+      (set player.xp (+ player.xp 1))
+      (set food.state :dead)))
+  (for [i (length foods) 1 -1]
+    (let [food (. foods i)]
+      (when (= food.state :dead) (table.remove foods i)))))
+
+;; collisions  ; (if (and test_block (= test_block.state :ok) (_G.cols? player test_block))
+;     (let [center {:x (+ test_block.x (/ test_block.w 2)) ;                   :y (+ test_block.y (/ test_block.h 2))}]
+;       (set player.hit_dir_x (utils.get_x_dir player center)) ;       (set test_block.state :to_dead) ;       (set player.state ENUMS.p_state.crashing)))
+
+(fn scene.hud []
+  (graphics.hud player))
 
 (fn scene.draw []
   (graphics.player player)
   (graphics.test_foods foods)
-  (love.graphics.setColor 1 1 1)
-  (graphics.track track))
+  (graphics.track track)
+  (graphics.hud player))
 
 (fn scene.keypressed [k]
   (when (= k :w) (print (tprint foods))))

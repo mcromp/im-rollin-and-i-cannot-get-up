@@ -10,5 +10,6 @@
     "tprint"
   ],
   "Lua.runtime.version": "Lua 5.1",
-  "Lua.workspace.ignoreDir": ["lib/*"]
+  "Lua.workspace.ignoreDir": ["lib/*"],
+  "cmake.configureOnOpen": false
 }
