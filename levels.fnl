@@ -1,5 +1,6 @@
 (local levels {})
 
+;; fnlfmt: skip
 (set levels.data 
   {
     :camera [4 3 2 1 0.5] 

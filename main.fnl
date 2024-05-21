@@ -5,8 +5,8 @@
 (local camera (require :camera.fnl))
 (local utils (require :utils.fnl))
 
-(local scenes {:game (require "scenes/game.fnl")
-               :title (require "scenes/title.fnl")
+(local scenes {:game (require :scenes/game.fnl)
+               :title (require :scenes/title.fnl)
                :credits :TODO})
 
 (fn love.load []

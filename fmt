@@ -1,0 +1,4 @@
+#!/bin/bash
+# run with ./fmt
+
+find . -maxdepth 2 -name \*.fnl -exec fnlfmt --fix {} \;
