@@ -8,8 +8,8 @@
 
 (set g.test_foods (fn [foods]
                     (each [_ f (pairs foods)]
-                      (love.graphics.setColor 0.99 0.1 0.31)
-                      (love.graphics.rectangle :line f.x f.y f.w f.h))
+                      (love.graphics.setColor 0.99 0.1 0.31 1)
+                      (love.graphics.circle :fill f.x f.y 200 10))
                     (love.graphics.setColor 1 1 1)))
 
 (set g.player (fn [p] (love.graphics.circle :fill p.x p.y 8 12)))

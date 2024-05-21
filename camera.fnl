@@ -3,7 +3,7 @@
 
 (var shake {:x 0 :y 0})
 (local service {})
-(set service.scale 4)
+(set service.scale 0.02)
 
 (var scale_temp 1)
 

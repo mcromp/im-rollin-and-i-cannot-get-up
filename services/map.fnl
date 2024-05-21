@@ -1,5 +1,6 @@
+(local food_entity (require :entities/food.fnl))
+(local building_entity (require :entities/building.fnl))
 (local service {})
-(local utils (require :utils.fnl))
 
 (local n_of_levels [1 2 3 4 5])
 (local empty_data (accumulate [acc {} _ curr (pairs n_of_levels)]
@@ -15,22 +16,6 @@
                            (tset acc building true))
                          acc)))
 
-(local handle_building (fn [obj]
-                         {:x obj.x
-                          :y obj.y
-                          :h obj.height
-                          :w obj.width
-                          :type :building}))
-
-(local handle_food (fn [obj]
-                     {:x obj.x
-                      :y obj.y
-                      :h 32
-                      :w 32
-                      :type :food
-                      :fade_in 0
-                      :id (utils.id_gen)}))
-
 (set service.parse (fn [map]
                      (accumulate [acc empty_data k v (pairs map.layers)]
                        (do
@@ -40,10 +25,10 @@
                                    type (string.sub v.name 9)]
                                (if (= type :food)
                                    (table.insert (. (. acc level) type)
-                                                 (handle_food value))
+                                                 (food_entity.from_map value))
                                    (= type :building)
                                    (table.insert (. (. acc level) type)
-                                                 (handle_building value))))))
+                                                 (building_entity.from_map value))))))
                          acc))))
 
 (set service.get_buildings_from_scene_data

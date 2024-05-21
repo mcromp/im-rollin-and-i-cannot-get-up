@@ -5,7 +5,7 @@
   {
     :camera [4 3 2 1 0.5] 
     :xp [0 10 32 64 99] 
-    :food_amount [20 20 20 20 20]
+    :food_amount [45 20 20 20 20]
     :movement [
       {:speed 09 :move_force 200 :max_move_amount 100 :gravity 0.5}
       {:speed 08 :move_force 350 :max_move_amount 200 :gravity 8}

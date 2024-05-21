@@ -1,5 +1,5 @@
 [ ] - FOOD
-  [ ] - generation
+  [x] - generation
   [ ] - collision
   [ ] - pickup
 [ ] - BUILDING 

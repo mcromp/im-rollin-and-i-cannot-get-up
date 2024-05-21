@@ -36,6 +36,7 @@
 
 (fn scene.draw []
   (graphics.player player)
+  (graphics.test_foods foods)
   (love.graphics.setColor 1 1 1)
   (graphics.track track))
 
