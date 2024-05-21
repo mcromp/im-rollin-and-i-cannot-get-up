@@ -30,9 +30,10 @@ while 1 do love.event.push('stdin', io.read('*line')) end") :start))
   (when _G.scene (_G.scene.update dt))
   (timer.update dt))
 
-(fn love.keypressed [key]
+(fn love.keypressed [k]
   ;; debugging remove for production
-  (when (= key :escape) (love.event.quit))
-  (when (= key :i) (set camera.scale (+ camera.scale 1)))
-  (when (= key :p) (set camera.scale 1))
-  (when (= key :o) (set camera.scale (- camera.scale 1))))
+  (when _G.scene (_G.scene.keypressed k))
+  (when (= k :escape) (love.event.quit))
+  (when (= k :i) (set camera.scale (+ camera.scale 1)))
+  (when (= k :p) (set camera.scale 1))
+  (when (= k :o) (set camera.scale (- camera.scale 1))))

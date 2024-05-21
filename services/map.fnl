@@ -1,4 +1,5 @@
 (local service {})
+(local utils (require :utils.fnl))
 
 (local n_of_levels [1 2 3 4 5])
 (local empty_data (accumulate [acc {} _ curr (pairs n_of_levels)]
@@ -21,9 +22,14 @@
                           :w obj.width
                           :type :building}))
 
-(local handle_food
-       (fn [obj]
-         {:x obj.x :y obj.y :h 32 :w 32 :type :food}))
+(local handle_food (fn [obj]
+                     {:x obj.x
+                      :y obj.y
+                      :h 32
+                      :w 32
+                      :type :food
+                      :fade_in 0
+                      :id (utils.id_gen)}))
 
 (set service.parse (fn [map]
                      (accumulate [acc empty_data k v (pairs map.layers)]

@@ -8,4 +8,14 @@
                        (let [angle (math.atan2 (- a.y b.y) (- a.x b.x))]
                          (math.cos angle))))
 
+(local random math.random)
+(set utils.id_gen (fn []
+                    (local s :xxxxxxxxxx)
+                    (local id
+                           (string.gsub s :x
+                                        (fn [c]
+                                          (local v (random 0 15))
+                                          (string.format "%x" v))))
+                    id))
+
 utils
