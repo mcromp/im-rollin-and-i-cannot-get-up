@@ -1,5 +1,5 @@
 (local ENUMS (require :enums.fnl))
-(local camera (require :camera.fnl))
+(local camera (require :services/camera.fnl))
 (local level_data (. (. (require :levels.fnl) :data) :movement))
 
 (local service {})

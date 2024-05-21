@@ -2,7 +2,7 @@
 
 (local player (require :entities/player.fnl))
 (local track (require :entities/track.fnl))
-(local camera (require :camera.fnl))
+(local camera (require :services/camera.fnl))
 (local utils (require :utils.fnl))
 
 (local scenes {:game (require :scenes/game.fnl)
