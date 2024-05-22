@@ -56,12 +56,13 @@
 (tset service ENUMS.p_state.bouncing
       (fn [entity track dt]
         (local _d (. level_data _Gstate.level))
+        (local max_move_amount _d.max_move_amount)
         (let [speed (. _d :speed)]
           (set ticker (- ticker (/ dt entity.speed))))
         (when can_bounce? (bounce entity))
         (move_on_track entity track dt)
-        (let [hit_dir (if (> entity.hit_dir_x 0) (* entity.max_move_amount 2)
-                          (< entity.hit_dir_x 0) (- (* entity.max_move_amount 2)))]
+        (let [hit_dir (if (> entity.hit_dir_x 0) (* max_move_amount 2)
+                          (< entity.hit_dir_x 0) (- (* max_move_amount 2)))]
           (set entity.vx (+ entity.vx (* dt hit_dir))))))
 
 ;; ###### CRASHING 
@@ -72,7 +73,6 @@
   (set can_crash? false)
   (camera.shake)
   (set entity.input_pause? true)
-  (set entity.speed (fasten_speed normal_speed))
   (timer.after 0.4
                (fn [] (set entity.input_pause? false)
                  (set entity.speed (slower_speed normal_speed))))
@@ -84,7 +84,7 @@
 
 (tset service ENUMS.p_state.crashing
       (fn [entity track dt]
-        (set ticker (+ ticker (/ dt entity.speed)))
+        (set ticker (+ ticker (/ dt 10)))
         (move_on_track entity track dt)
         (when can_crash? (crash entity))))
 

@@ -38,7 +38,14 @@
          (when (. obj.building 1)
            (each [_ b (pairs obj.building)]
              (table.insert buildings
-                           {:x b.x :y b.y :w b.w :h b.h : level :name :todo}))))
+                           {:x b.x
+                            :y b.y
+                            :w b.w
+                            :h b.h
+                            : level
+                            :name :todo
+                            :state b.state
+                            :fade_out b.fade_out}))))
        buildings))
 
 service

@@ -6,7 +6,7 @@
 (fn g.test_buildings [buildings]
   (each [_ b (pairs buildings)]
     (love.graphics.setColor 0.49 0.4 0.81)
-    (love.graphics.rectangle :line b.x b.y b.w b.h))
+    (love.graphics.rectangle :fill b.x b.y b.w b.h))
   (love.graphics.setColor 1 1 1))
 
 (fn g.test_foods [foods]

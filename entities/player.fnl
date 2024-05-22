@@ -8,5 +8,6 @@
  :y _center.y
  :state ENUMS.p_state.moving
  :hit_dir_x 0
+ :kills 0
  :xp 0
  :speed 3}

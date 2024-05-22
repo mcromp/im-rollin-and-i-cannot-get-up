@@ -2,10 +2,10 @@
   [x] - generation
   [x] - collision
   [x] - pickup
-[ ] - BUILDING 
-  [ ] - generation
-  [ ] - collision
-  [ ] - crash
+[x] - BUILDING 
+  [x] - generation
+  [x] - collision
+  [x] - crash
 [ ] - PLAYER 
   [x] - xp
   [ ] - level up
