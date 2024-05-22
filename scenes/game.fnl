@@ -1,5 +1,6 @@
 (local scene {})
 (local ENUMS (require :enums.fnl))
+(local camera (require :services/camera.fnl))
 (local utils (require :utils.fnl))
 (local player_movement_service (require :services/player_movement.fnl))
 (local map_service (require :services/map.fnl))
@@ -12,7 +13,9 @@
 (set scene.map :map/map.lua)
 (local food_amounts (. (. (require :levels.fnl) :data) :food_amount))
 (local player_size (. (. (require :levels.fnl) :data) :player_size))
+(local lvl_kills (. (. (require :levels.fnl) :data) :kills))
 (local xps (. (. (require :levels.fnl) :data) :xp))
+(local lvl_c (. (. (require :levels.fnl) :data) :camera))
 
 ;; data from map for levels
 (var data {})
@@ -26,12 +29,24 @@
   (set buildings (map_service.get_buildings_from_scene_data data)))
 
 (fn scene.update [dt]
+  (local lvl_kill (. lvl_kills _Gstate.level))
   (local powered_up? (>= player.xp (. xps _Gstate.level)))
+  (local powered_up? true)
   (local player_size (. player_size _Gstate.level))
   (local p_center {:x (- player.x (/ player_size 2))
                    :y (- player.y (/ player_size 2))
                    :h player_size
                    :w player_size})
+  ;; handle level up
+  (when (and (and (= player.kills lvl_kill) (not player.level_up?))
+             (not= _Gstate.level 5))
+    (set player.level_up? true)
+    (timer.after 2
+                 (fn []
+                   (set player.level_up? false)
+                   (set _Gstate.level (+ _Gstate.level 1))
+                   (set foods {})
+                   (set camera.scale (. lvl_c _Gstate.level)))))
   ;; player movement 
   (let [f (. player_movement_service player.state)]
     (if f (f player track dt)))
@@ -61,24 +76,22 @@
                         :y (+ building.y (/ building.h 2))}]
           (set player.hit_dir_x (utils.get_x_dir p_center b_center))
           (if (not powered_up?) (set player.state ENUMS.p_state.bouncing)
-              (set player.state ENUMS.p_state.crashing) (set player.kills
-                                                             (+ player.kills 1))
-              (set building.state :hit))))
-      ;; building  kill
-      (for [i (length buildings) 1 -1]
-        (let [building (. buildings i)]
-          (when (= building.state :dead) (table.remove buildings i)))))))
+              (do
+                (set player.state ENUMS.p_state.crashing)
+                (set player.kills (+ player.kills 1))
+                (set building.state :hit))))))))
 
 (fn scene.hud []
   (graphics.hud player))
 
 (fn scene.draw []
   (graphics.track track)
+  (graphics.test_buildings buildings)
   (graphics.player player)
-  (graphics.test_foods foods)
-  (graphics.test_buildings buildings))
+  (graphics.test_foods foods))
 
 (fn scene.keypressed [k]
-  (when (= k :w) (print (tprint foods))))
+  (when (= k :w)
+    (print (tprint (. (. data 2) :food)))))
 
 scene
