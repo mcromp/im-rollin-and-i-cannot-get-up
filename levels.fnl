@@ -6,6 +6,7 @@
     :camera [4 3 2 1 0.5] 
     :xp [25 50 85 123 164] 
     :food_amount [100 20 20 20 20]
+    :player_size [8 12 16 32 64]
     :movement [
       {:speed 09 :move_force 200 :max_move_amount 100 :gravity 0.5}
       {:speed 08 :move_force 350 :max_move_amount 200 :gravity 8}

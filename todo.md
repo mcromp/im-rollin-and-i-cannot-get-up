@@ -1,4 +1,4 @@
-[ ] - FOOD
+[x] - FOOD
   [x] - generation
   [x] - collision
   [x] - pickup
@@ -7,7 +7,7 @@
   [ ] - collision
   [ ] - crash
 [ ] - PLAYER 
-  [ ] - xp
+  [x] - xp
   [ ] - level up
 
 UI

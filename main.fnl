@@ -13,6 +13,7 @@
     (love.graphics.setFont font))
   (set _G.scene scenes.game)
   (_G.scene.load)
+  (set _G.sfx {:eat (love.audio.newSource :assets/sfx/eat.ogg :static)})
   ;; start a thread listening on stdin
   (: (love.thread.newThread "require('love.event')
 while 1 do love.event.push('stdin', io.read('*line')) end") :start))

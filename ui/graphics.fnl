@@ -1,5 +1,6 @@
 (local g {})
 (local xp_lvl (. (. (require :levels.fnl) :data) :xp))
+(local player_size (. (. (require :levels.fnl) :data) :player_size))
 (local camera (require :services/camera.fnl))
 
 (fn g.test_buildings [buildings]
@@ -14,9 +15,11 @@
     (love.graphics.rectangle :fill f.x f.y f.w f.h))
   (love.graphics.setColor 1 1 1))
 
-(fn g.player [p] 
-
-(love.graphics.rectangle :fill p.x p.y p.w p.h))
+(fn g.player [p]
+  (local size (. player_size _Gstate.level))
+  (local px (- p.x (/ size 2)))
+  (local py (- p.y (/ size 2)))
+  (love.graphics.rectangle :fill px py size size))
 
 (fn g.hud [p]
   (love.graphics.setColor 0 0 0)

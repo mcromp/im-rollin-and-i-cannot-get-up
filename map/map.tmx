@@ -346,12 +346,6 @@
   <object id="32" x="1856" y="384">
    <point/>
   </object>
-  <object id="33" x="1568" y="160">
-   <point/>
-  </object>
-  <object id="34" x="1568" y="320">
-   <point/>
-  </object>
   <object id="35" x="1184" y="352">
    <point/>
   </object>
@@ -610,9 +604,6 @@
   <object id="139" x="768" y="1216">
    <point/>
   </object>
-  <object id="140" x="832" y="832">
-   <point/>
-  </object>
   <object id="141" x="896" y="960">
    <point/>
   </object>
@@ -638,9 +629,6 @@
    <point/>
   </object>
   <object id="149" x="1472" y="320">
-   <point/>
-  </object>
-  <object id="150" x="1696" y="160">
    <point/>
   </object>
   <object id="151" x="1664" y="320">

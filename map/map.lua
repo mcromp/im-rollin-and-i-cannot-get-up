@@ -616,32 +616,6 @@ return {
           properties = {}
         },
         {
-          id = 33,
-          name = "",
-          type = "",
-          shape = "point",
-          x = 1568,
-          y = 160,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 34,
-          name = "",
-          type = "",
-          shape = "point",
-          x = 1568,
-          y = 320,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 35,
           name = "",
           type = "",
@@ -1760,19 +1734,6 @@ return {
           properties = {}
         },
         {
-          id = 140,
-          name = "",
-          type = "",
-          shape = "point",
-          x = 832,
-          y = 832,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 141,
           name = "",
           type = "",
@@ -1883,19 +1844,6 @@ return {
           shape = "point",
           x = 1472,
           y = 320,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 150,
-          name = "",
-          type = "",
-          shape = "point",
-          x = 1696,
-          y = 160,
           width = 0,
           height = 0,
           rotation = 0,

@@ -8,6 +8,7 @@
 (local sti (require :lib.sti))
 (set scene.map :map/map.lua)
 (local food_amounts (. (. (require :levels.fnl) :data) :food_amount))
+(local player_size (. (. (require :levels.fnl) :data) :player_size))
 (local xps (. (. (require :levels.fnl) :data) :xp))
 
 ;; data from map for levels
@@ -22,6 +23,11 @@
   (set buildings (map_service.get_buildings_from_scene_data data)))
 
 (fn scene.update [dt]
+  (local player_size (. player_size _Gstate.level))
+  (local p_center {:x (- player.x (/ player_size 2))
+                   :y (- player.y (/ player_size 2))
+                   :h player_size
+                   :w player_size})
   ;; player movement 
   (let [f (. player_movement_service player.state)]
     (if f (f player track dt))) ; (local collisions (get_player_cols player data))
@@ -34,8 +40,10 @@
   (each [k food (pairs foods)]
     (let [f (. food_service food.state)] (if f (f food dt)))
     ;; collision
-    (when (and (= food.state :moving) (_G.cols? player food))
-      (set player.xp (+ player.xp 1))
+    (when (and (= food.state :moving) (_G.cols? p_center food))
+      (when (< player.xp (. xps _Gstate.level))
+        (set player.xp (+ player.xp 1)))
+        (love.audio.play _G.sfx.eat)
       (set food.state :dead)))
   (for [i (length foods) 1 -1]
     (let [food (. foods i)]
