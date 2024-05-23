@@ -27,6 +27,8 @@
   (local py (- p.y (/ size 2)))
   (love.graphics.rectangle :fill px py size size))
 
+(var lvl_up_switch true)
+(var lvl_up_fade {:v 0})
 (fn g.hud [p]
   (love.graphics.setColor 0 0 0)
   (local m "PWR XP ::  ")
@@ -41,8 +43,6 @@
   (love.graphics.print (.. (.. m xp_p) per) 10 10)
   (love.graphics.print (.. "next level " (.. (.. (.. p.kills) " / ") lk)) 500
                        10)
-  (when p.level_up?
-    (love.graphics.print "LEVEL UP!!!" 300 300))
   (when (= xp_p :100)
     (love.graphics.setColor 1 0 0)
     (love.graphics.print "!! FULL PWR : DESTROY ALL BUILDINGS !!" 200

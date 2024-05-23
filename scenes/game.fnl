@@ -25,6 +25,8 @@
 
 (fn scene.load []
   (set _G.map (sti :map/map.lua))
+  (love.audio.play _G.sfx.music)
+  (_G.sfx.music:setVolume 0.5)
   (set data (map_service.parse _G.map))
   (set buildings (map_service.get_buildings_from_scene_data data)))
 
@@ -41,15 +43,19 @@
   (when (and (and (= player.kills lvl_kill) (not player.level_up?))
              (not= _Gstate.level 5))
     (set player.level_up? true)
-    (timer.after 2
+    (_G.sfx.music:pause)
+    (love.audio.play _G.sfx.fanfare)
+    (timer.after 3.2 (fn [] (_G.sfx.music:play)))
+    (timer.after 3
                  (fn []
                    (set player.level_up? false)
                    (set _Gstate.level (+ _Gstate.level 1))
+                   (love.audio.play _G.sfx.grow)
                    (set foods {})
                    (set camera.scale (. lvl_c _Gstate.level)))))
   ;; player movement 
   (let [f (. player_movement_service player.state)]
-    (if f (f player track dt)))
+    (if (and f (not player.level_up?)) (f player track dt)))
   ;; food generation 
   (local current_level _Gstate.level)
   (let [desired_food_amount (. food_amounts current_level)]
@@ -61,6 +67,7 @@
     (when (and (= food.state :moving) (_G.cols? p_center food))
       (when (< player.xp (. xps _Gstate.level))
         (set player.xp (+ player.xp 1)))
+      (when (_G.sfx.eat:isPlaying) (_G.sfx.eat:stop))
       (love.audio.play _G.sfx.eat)
       (set food.state :dead)))
   ;; food kill
@@ -75,8 +82,12 @@
         (let [b_center {:x (+ building.x (/ building.w 2))
                         :y (+ building.y (/ building.h 2))}]
           (set player.hit_dir_x (utils.get_x_dir p_center b_center))
-          (if (not powered_up?) (set player.state ENUMS.p_state.bouncing)
+          (if (not powered_up?)
               (do
+                (love.audio.play _G.sfx.bounce)
+                (set player.state ENUMS.p_state.bouncing))
+              (do
+                (love.audio.play _G.sfx.hit)
                 (set player.state ENUMS.p_state.crashing)
                 (set player.kills (+ player.kills 1))
                 (set building.state :hit))))))))

@@ -9,11 +9,19 @@
                :credits :TODO})
 
 (fn love.load []
+  ;; load data
+  (set _G.sfx
+       {:music (love.audio.newSource :assets/sfx/music.ogg :stream)
+        :hit (love.audio.newSource :assets/sfx/hit.ogg :static)
+        :bounce (love.audio.newSource :assets/sfx/bounce.ogg :static)
+        :fanfare (love.audio.newSource :assets/sfx/fanfare.mp3 :static)
+        :grow (love.audio.newSource :assets/sfx/grow.mp3 :static)
+        :eat (love.audio.newSource :assets/sfx/eat.ogg :static)})
   (let [font (love.graphics.newFont 32)]
     (love.graphics.setFont font))
+  ;; load scene
   (set _G.scene scenes.game)
   (_G.scene.load)
-  (set _G.sfx {:eat (love.audio.newSource :assets/sfx/eat.ogg :static)})
   ;; start a thread listening on stdin
   (: (love.thread.newThread "require('love.event')
 while 1 do love.event.push('stdin', io.read('*line')) end") :start))

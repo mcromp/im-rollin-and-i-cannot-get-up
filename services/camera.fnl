@@ -1,5 +1,6 @@
 (local ENUMS (require :enums.fnl))
 (local level_camera (. (. (require :levels.fnl) :data) :camera))
+(local level_shake (. (. (require :levels.fnl) :data) :shake))
 
 (var shake {:x 0 :y 0})
 (local service {})
@@ -8,13 +9,12 @@
 (var scale_temp 1)
 
 (set service.shake
-     (fn []
-       (local a1 (+ (/ (love.math.random 4) 100) 0.3))
-       (local a2 (+ (/ (love.math.random 5) 100) 0.5))
-       (timer.tween 0.1 shake {:x a1 :y (- a2)} :out-in-elastic)
+     (fn [] ;  (local a1 (+ (/ (love.math.random 4) 100) 0.3)) ;  (local a2 (+ (/ (love.math.random 5) 100) 0.5))
+       (local a1 (. level_shake _Gstate.level))
+       (timer.tween 0.1 shake {:x a1 :y (- a1)} :out-in-elastic)
        (timer.after 0.1
                     (fn []
-                      (timer.tween 0.05 shake {:x (- a2) :y a1} :linear)
+                      (timer.tween 0.05 shake {:x (- a1) :y a1} :linear)
                       (timer.after 0.1 (fn [] (set shake {:x 0 :y 0})))))))
 
 (set service.draw

@@ -6,6 +6,7 @@
     :camera [5 3 2 1 0.5] 
     :xp [8 10 85 123 164] 
     :kills [3 6 10 14 20]
+    :shake [0.3 0.2 0.1 0.05 0.01]
     :food_amount [120 1 1 1 1]
     :player_size [8 12 16 32 64]
     :movement [

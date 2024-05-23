@@ -6,9 +6,11 @@
   [x] - generation
   [x] - collision
   [x] - crash
-[ ] - PLAYER 
+[x] - PLAYER 
   [x] - xp
-  [ ] - level up
+  [x] - level up
+
+[ ] -> fix food generation
 
 UI
 [ ] animation
