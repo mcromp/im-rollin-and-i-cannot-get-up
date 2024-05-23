@@ -69,11 +69,9 @@
         (set player.xp (+ player.xp 1)))
       (when (_G.sfx.eat:isPlaying) (_G.sfx.eat:stop))
       (love.audio.play _G.sfx.eat)
-      (set food.state :dead)))
-  ;; food kill
-  (for [i (length foods) 1 -1]
-    (let [food (. foods i)]
-      (when (= food.state :dead) (table.remove foods i)))
+      (set food.state :dead)
+      (timer.after 5 (fn [] (set food.state :moving)))
+      ))
     ;; buildings 
     (each [k building (pairs buildings)]
       (let [f (. building_service building.state)] (if f (f building dt)))
@@ -90,7 +88,7 @@
                 (love.audio.play _G.sfx.hit)
                 (set player.state ENUMS.p_state.crashing)
                 (set player.kills (+ player.kills 1))
-                (set building.state :hit))))))))
+                (set building.state :hit)))))))
 
 (fn scene.hud []
   (graphics.hud player))

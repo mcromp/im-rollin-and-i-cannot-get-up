@@ -17,8 +17,9 @@
 
 (fn g.test_foods [foods]
   (each [_ f (pairs foods)]
+  (when (= f.state :moving)
     (love.graphics.setColor 0.99 0.1 0.31 f.fade_in)
-    (love.graphics.rectangle :fill f.x f.y f.w f.h))
+    (love.graphics.rectangle :fill f.x f.y f.w f.h)))
   (love.graphics.setColor 1 1 1))
 
 (fn g.player [p]
@@ -33,7 +34,7 @@
   (love.graphics.setColor 0 0 0)
   (local m "PWR XP ::  ")
   (local per " %")
-  (local xp_p (tostring (* (/ p.xp (. xp_lvl _Gstate.level)) 100)))
+  (local xp_p (tostring (math.floor (* (/ p.xp (. xp_lvl _Gstate.level)) 100))))
   (local lk (tostring (. kill_lvl _Gstate.level)))
   (love.graphics.print (.. (.. m xp_p) per) 11.5 10)
   (love.graphics.print (.. (.. m xp_p) per) 10 11.5)
