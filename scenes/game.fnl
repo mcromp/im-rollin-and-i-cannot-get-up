@@ -28,7 +28,8 @@
   (love.audio.play _G.sfx.music)
   (_G.sfx.music:setVolume 0.5)
   (set data (map_service.parse _G.map))
-  (set buildings (map_service.get_buildings_from_scene_data data)))
+  (set buildings (map_service.get_buildings_from_scene_data data))
+  (set foods (. (. data _Gstate.level) :food)))
 
 (fn scene.update [dt]
   (local lvl_kill (. lvl_kills _Gstate.level))
@@ -45,21 +46,18 @@
     (set player.level_up? true)
     (_G.sfx.music:pause)
     (love.audio.play _G.sfx.fanfare)
-    (timer.after 3.2 (fn [] (_G.sfx.music:play)))
-    (timer.after 3
+    (timer.after 2.7 (fn [] (_G.sfx.music:play)))
+    (timer.after 2.5
                  (fn []
+                   (local new_level (+ _Gstate.level 1))
                    (set player.level_up? false)
-                   (set _Gstate.level (+ _Gstate.level 1))
+                   (set _Gstate.level new_level)
+                   (set foods (. (. data new_level) :food))
                    (love.audio.play _G.sfx.grow)
-                   (set foods {})
                    (set camera.scale (. lvl_c _Gstate.level)))))
   ;; player movement 
   (let [f (. player_movement_service player.state)]
     (if (and f (not player.level_up?)) (f player track dt)))
-  ;; food generation 
-  (local current_level _Gstate.level)
-  (let [desired_food_amount (. food_amounts current_level)]
-    (food_service.handle_generation foods desired_food_amount data)) ; food collision  
   ;; food 
   (each [k food (pairs foods)]
     (let [f (. food_service food.state)] (if f (f food dt)))
@@ -70,25 +68,24 @@
       (when (_G.sfx.eat:isPlaying) (_G.sfx.eat:stop))
       (love.audio.play _G.sfx.eat)
       (set food.state :dead)
-      (timer.after 5 (fn [] (set food.state :moving)))
-      ))
-    ;; buildings 
-    (each [k building (pairs buildings)]
-      (let [f (. building_service building.state)] (if f (f building dt)))
-      ;; building collision
-      (when (and (_G.cols? p_center building) (= building.state :ok))
-        (let [b_center {:x (+ building.x (/ building.w 2))
-                        :y (+ building.y (/ building.h 2))}]
-          (set player.hit_dir_x (utils.get_x_dir p_center b_center))
-          (if (not powered_up?)
-              (do
-                (love.audio.play _G.sfx.bounce)
-                (set player.state ENUMS.p_state.bouncing))
-              (do
-                (love.audio.play _G.sfx.hit)
-                (set player.state ENUMS.p_state.crashing)
-                (set player.kills (+ player.kills 1))
-                (set building.state :hit)))))))
+      (timer.after 5 (fn [] (set food.state :moving)))))
+  ;; buildings 
+  (each [k building (pairs buildings)]
+    (let [f (. building_service building.state)] (if f (f building dt)))
+    ;; building collision
+    (when (and (_G.cols? p_center building) (= building.state :ok))
+      (let [b_center {:x (+ building.x (/ building.w 2))
+                      :y (+ building.y (/ building.h 2))}]
+        (set player.hit_dir_x (utils.get_x_dir p_center b_center))
+        (if (not powered_up?)
+            (do
+              (love.audio.play _G.sfx.bounce)
+              (set player.state ENUMS.p_state.bouncing))
+            (do
+              (love.audio.play _G.sfx.hit)
+              (set player.state ENUMS.p_state.crashing)
+              (set player.kills (+ player.kills 1))
+              (set building.state :hit)))))))
 
 (fn scene.hud []
   (graphics.hud player))

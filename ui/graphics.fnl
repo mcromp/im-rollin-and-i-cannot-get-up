@@ -17,9 +17,9 @@
 
 (fn g.test_foods [foods]
   (each [_ f (pairs foods)]
-  (when (= f.state :moving)
-    (love.graphics.setColor 0.99 0.1 0.31 f.fade_in)
-    (love.graphics.rectangle :fill f.x f.y f.w f.h)))
+    (when (= f.state :moving)
+      (love.graphics.setColor 0.99 0.1 0.31 f.fade_in)
+      (love.graphics.rectangle :fill f.x f.y f.w f.h)))
   (love.graphics.setColor 1 1 1))
 
 (fn g.player [p]
