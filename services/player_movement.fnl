@@ -18,7 +18,9 @@
 (fn move_on_track [entity track dt]
   (local force (+ track.r entity.vx))
   (set entity.x (+ _center.x (* (/ (math.cos ticker) track.skew) force)))
-  (set entity.y (+ _center.y (* (math.sin ticker) force))))
+  (set entity.y (+ _center.y (* (math.sin ticker) force)))
+  (local dir (math.atan2 (- _center.y entity.y) (- _center.x entity.x)))
+  (let [deg_90 1.5708] (set entity.dir (+ dir deg_90))))
 
 ;; ###### MOVING 
 (tset service ENUMS.p_state.moving

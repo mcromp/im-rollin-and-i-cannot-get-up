@@ -26,7 +26,9 @@
   (local size (. player_size _Gstate.level))
   (local px (- p.x (/ size 2)))
   (local py (- p.y (/ size 2)))
-  (love.graphics.rectangle :fill px py size size))
+  (love.graphics.setColor 0 0 0)
+  (love.graphics.rectangle :fill px py size size)
+  )
 
 (fn make_shadow_text [x y m]
   (love.graphics.print m (+ x 1.5) y)

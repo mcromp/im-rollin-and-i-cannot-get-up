@@ -10,24 +10,29 @@
   [x] - xp
   [x] - level up
 
-[ ] -> fix food generation
+[x] - fix food generation
+
+!! [ ] - Tweek food / building placement/amount
 
 UI
 [ ] animation
 [ ] start screen 
-[ ] MAYBE - intro scene
 [ ] ending scene
-[ ] HUD to show xp
+[x] HUD to show xp
 [ ] make buildings
 [ ] make char animation
 [ ] make food
+[ ] - make esc instructions
 
 SFX 
-[ ] - crash sound
-[ ] - level up sound
-[ ] - bounce sound
-[ ] - rolling sound
+[x] - crash sound
+[x] - level up sound
+[x] - bounce sound
+[x] - rolling sound
 [ ] - MUSIC
-  [ ] - intro
   [ ] - ending
-  [ ] - game
+  [x] - game
+
+NICE TO HAVES
+[ ] - intro scene
+[ ] - intro music

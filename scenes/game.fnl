@@ -61,8 +61,7 @@
   (each [k food (pairs foods)]
     (let [f (. food_service food.state)] (if f (f food dt)))
     (when (>= player.xp (. xps _Gstate.level))
-    (set foods {})
-    )
+      (set foods {}))
     ;; food collision
     (when (and (= food.state :moving) (_G.cols? p_center food))
       (when (< player.xp (. xps _Gstate.level))
@@ -100,6 +99,6 @@
 
 (fn scene.keypressed [k]
   (when (= k :w)
-    (print (tprint (. (. data 2) :food)))))
+    (set player.kills (+ player.kills 1))))
 
 scene
