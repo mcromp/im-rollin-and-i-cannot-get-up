@@ -34,7 +34,6 @@
 (fn scene.update [dt]
   (local lvl_kill (. lvl_kills _Gstate.level))
   (local powered_up? (>= player.xp (. xps _Gstate.level)))
-  (local powered_up? true)
   (local player_size (. player_size _Gstate.level))
   (local p_center {:x (- player.x (/ player_size 2))
                    :y (- player.y (/ player_size 2))
@@ -61,6 +60,9 @@
   ;; food 
   (each [k food (pairs foods)]
     (let [f (. food_service food.state)] (if f (f food dt)))
+    (when (>= player.xp (. xps _Gstate.level))
+    (set foods {})
+    )
     ;; food collision
     (when (and (= food.state :moving) (_G.cols? p_center food))
       (when (< player.xp (. xps _Gstate.level))
