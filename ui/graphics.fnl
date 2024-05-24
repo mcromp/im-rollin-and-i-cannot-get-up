@@ -9,7 +9,7 @@
 (fn g.load []
   (local f _G.img.food)
   (local f_g (anim8.newGrid 32 32 (f:getWidth) (f:getHeight)))
-  (set food_anim (anim8.newAnimation (f_g :1-2 1) .4)))
+  (set food_anim (anim8.newAnimation (f_g :1-2 1) 0.4)))
 
 (fn g.update [dt]
   (when food_anim (food_anim:update dt)))
@@ -28,13 +28,8 @@
 (fn g.test_foods [foods]
   (love.graphics.setColor 1 1 1)
   (each [_ f (pairs foods)]
-    (when (= f.state :moving) ; (love.graphics.setColor 0.99 0.1 0.31 f.fade_in) ; (love.graphics.rectangle :fill f.x f.y f.w f.h)
-      ; (love.graphics.draw _G.img.food f.x f.y)
-      
-      (food_anim:draw _G.img.food f.x f.y)
-      
-      ;;
-      )))
+    (when (= f.state :moving)
+      (food_anim:draw _G.img.food f.x f.y))))
 
 (fn g.player [p]
   (local size (. player_size _Gstate.level))

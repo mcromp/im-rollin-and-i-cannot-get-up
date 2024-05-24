@@ -13,10 +13,12 @@
   (set _G.sfx
        {:music (love.audio.newSource :assets/sfx/music.ogg :stream)
         :hit (love.audio.newSource :assets/sfx/hit.ogg :static)
-        :bounce (love.audio.newSource :assets/sfx/bounce.ogg :static)
+        :bounce (love.audio.newSource :assets/sfx/bounce.mp3 :static)
         :fanfare (love.audio.newSource :assets/sfx/fanfare.mp3 :static)
         :grow (love.audio.newSource :assets/sfx/grow.mp3 :static)
+        :power_up (love.audio.newSource :assets/sfx/power_up.mp3 :static)
         :eat (love.audio.newSource :assets/sfx/eat.ogg :static)})
+  (_G.sfx.power_up:setVolume 0.5)
   (set _G.img {:food (love.graphics.newImage :assets/img/food.png)})
   (let [font (love.graphics.newFont 32)]
     (love.graphics.setFont font))

@@ -62,6 +62,7 @@
   (each [k food (pairs foods)]
     (let [f (. food_service food.state)] (if f (f food dt)))
     (when (>= player.xp (. xps _Gstate.level))
+      (love.audio.play _G.sfx.power_up)
       (set foods {}))
     ;; food collision
     (when (and (= food.state :moving) (_G.cols? p_center food))

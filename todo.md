@@ -20,8 +20,10 @@ UI
 [ ] ending scene
 [x] HUD to show xp
 [ ] make buildings
+  - buildings glow when they're powered up
 [ ] make char animation
-[ ] make food
+  - character changes somehow to show they're powered up
+[X] make food
 [ ] - make esc instructions
 
 SFX 
