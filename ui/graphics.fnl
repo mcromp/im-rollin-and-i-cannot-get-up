@@ -48,12 +48,12 @@
 (var lvl_up_fade {:v 0})
 (fn g.hud [p]
   (love.graphics.setColor 0 0 0)
-  (local xp "PWR XP ::  ")
-  (local per " %")
+  (local xp "PWR XP ")
+  (local per " % :: EAT THE STRAWBERRIES")
   (local xp_p (tostring (math.floor (* (/ p.xp (. xp_lvl _Gstate.level)) 100))))
   (local lk (tostring (. kill_lvl _Gstate.level)))
   (local food_count (.. (.. xp xp_p) per))
-  (local powered_up_m "FULL PWR :: DESTROY BUILDINGS")
+  (local powered_up_m "FULL PWR :: DESTROY THE BUILDINGS")
   (let [m (if (= xp_p :100) powered_up_m food_count)]
     (make_shadow_text 10 10 m)
     (love.graphics.setColor 1 1 1)

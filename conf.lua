@@ -9,5 +9,5 @@ function love.conf(t)
   t.modules.physics = false
   t.window.vsync = false
   t.version = "11.5"
-  t.window.title = "my beautiful fantasy game"
+  t.window.title = "im rollin' and i cannot get up"
 end
