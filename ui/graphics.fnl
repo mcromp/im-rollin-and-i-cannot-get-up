@@ -1,8 +1,18 @@
 (local g {})
+(local anim8 (require :lib/anim8))
 (local xp_lvl (. (. (require :levels.fnl) :data) :xp))
 (local kill_lvl (. (. (require :levels.fnl) :data) :kills))
 (local player_size (. (. (require :levels.fnl) :data) :player_size))
 (local camera (require :services/camera.fnl))
+(var food_anim {})
+
+(fn g.load []
+  (local f _G.img.food)
+  (local f_g (anim8.newGrid 32 32 (f:getWidth) (f:getHeight)))
+  (set food_anim (anim8.newAnimation (f_g :1-2 1) .4)))
+
+(fn g.update [dt]
+  (when food_anim (food_anim:update dt)))
 
 (fn g.test_buildings [buildings]
   (each [_ b (pairs buildings)]
@@ -16,19 +26,22 @@
   (love.graphics.setColor 1 1 1))
 
 (fn g.test_foods [foods]
+  (love.graphics.setColor 1 1 1)
   (each [_ f (pairs foods)]
-    (when (= f.state :moving)
-      (love.graphics.setColor 0.99 0.1 0.31 f.fade_in)
-      (love.graphics.rectangle :fill f.x f.y f.w f.h)))
-  (love.graphics.setColor 1 1 1))
+    (when (= f.state :moving) ; (love.graphics.setColor 0.99 0.1 0.31 f.fade_in) ; (love.graphics.rectangle :fill f.x f.y f.w f.h)
+      ; (love.graphics.draw _G.img.food f.x f.y)
+      
+      (food_anim:draw _G.img.food f.x f.y)
+      
+      ;;
+      )))
 
 (fn g.player [p]
   (local size (. player_size _Gstate.level))
   (local px (- p.x (/ size 2)))
   (local py (- p.y (/ size 2)))
   (love.graphics.setColor 0 0 0)
-  (love.graphics.rectangle :fill px py size size)
-  )
+  (love.graphics.rectangle :fill px py size size))
 
 (fn make_shadow_text [x y m]
   (love.graphics.print m (+ x 1.5) y)

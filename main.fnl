@@ -16,7 +16,8 @@
         :bounce (love.audio.newSource :assets/sfx/bounce.ogg :static)
         :fanfare (love.audio.newSource :assets/sfx/fanfare.mp3 :static)
         :grow (love.audio.newSource :assets/sfx/grow.mp3 :static)
-        :eat (love.audio.newSource :assets/sfx/eat.ogg :static)}) ; (set _G.img { ;   :player (love.graphics.newImage "assets/icon.png") ; })
+        :eat (love.audio.newSource :assets/sfx/eat.ogg :static)})
+  (set _G.img {:food (love.graphics.newImage :assets/img/food.png)})
   (let [font (love.graphics.newFont 32)]
     (love.graphics.setFont font))
   ;; load scene

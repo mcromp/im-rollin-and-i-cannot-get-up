@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "map.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -12,11 +12,11 @@
             "scaleInDock": 1
         },
         "map.tmx": {
-            "scale": 0.2,
+            "scale": 1.7079,
             "selectedLayer": 12,
             "viewCenter": {
-                "x": 1497.5,
-                "y": 1927.5
+                "x": 1980.5023713332162,
+                "y": 3434.3345629135197
             }
         },
         "map.tmx#tileset": {
@@ -34,6 +34,7 @@
     "map.lastUsedFormat": "tmx",
     "map.width": 50,
     "openFiles": [
+        "map.tmx"
     ],
     "project": "lisp_jam_2024_mcromp.tiled-project",
     "recentFiles": [

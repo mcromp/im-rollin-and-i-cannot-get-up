@@ -25,6 +25,7 @@
 
 (fn scene.load []
   (set _G.map (sti :map/map.lua))
+  (graphics.load)
   (love.audio.play _G.sfx.music)
   (_G.sfx.music:setVolume 0.5)
   (set data (map_service.parse _G.map))
@@ -86,7 +87,8 @@
               (love.audio.play _G.sfx.hit)
               (set player.state ENUMS.p_state.crashing)
               (set player.kills (+ player.kills 1))
-              (set building.state :hit)))))))
+              (set building.state :hit))))))
+  (graphics.update dt))
 
 (fn scene.hud []
   (graphics.hud player))

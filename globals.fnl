@@ -5,3 +5,4 @@
 (set _G.map nil)
 (set _G.scene nil)
 (set _G.sfx {})
+(set _G.img {})
