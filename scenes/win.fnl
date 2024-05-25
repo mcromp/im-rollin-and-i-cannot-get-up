@@ -7,7 +7,7 @@
   (love.audio.play _G.sfx.fanfare))
 
 (fn scene.draw []
-  (love.graphics.print "you win good job, but the whole city is destroyed..."
+  (love.graphics.print "you win! You've crashed enough buildings to stop rolling!"
                        100 100)
   (love.graphics.print "press esc to exit" 100 400))
 

@@ -15,4 +15,4 @@ love .
 - [anim8](https://github.com/kikito/anim8) Enrique García Cota, MIT License
 - [bump.lua](https://github.com/kikito/bump.lua) Enrique García Cota, MIT/X11 License
 - [Simple Tiled Implementation (sti](https://github.com/Karai17/Simple-Tiled-Implementation) Landon Manning MIT/X11 License
-- all other assets (art, sfx not previously mentioned) were created for this project and are CC0
+- all other assets (art, code, sfx) that were not previously mentioned were created for this project and are CC0
