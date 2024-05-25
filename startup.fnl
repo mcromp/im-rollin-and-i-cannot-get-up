@@ -16,7 +16,13 @@
        {:food (love.graphics.newImage :assets/img/food.png)
         :full_pwr (love.graphics.newImage :assets/img/full_pwr.png)
         :title (love.graphics.newImage :assets/img/title.png)
-        :lvl_up (love.graphics.newImage :assets/img/lvl_up.png)})
+        :lvl_up (love.graphics.newImage :assets/img/lvl_up.png)
+        :a (love.graphics.newImage :assets/img/buildings/a_3x3.png)
+        :b (love.graphics.newImage :assets/img/buildings/b_3x3.png)
+        :c (love.graphics.newImage :assets/img/buildings/c_4x3.png)
+        :d (love.graphics.newImage :assets/img/buildings/d_5x3.png)
+        :e (love.graphics.newImage :assets/img/buildings/e_3x5.png)
+        :f (love.graphics.newImage :assets/img/buildings/f_6x3.png)})
   ;; font
   (let [font (love.graphics.newFont 32)]
     (love.graphics.setFont font)))

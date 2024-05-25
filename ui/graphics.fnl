@@ -18,11 +18,11 @@
   (each [_ b (pairs buildings)]
     (if (= b.state :dead)
         (do
-          (love.graphics.setColor 0 0 0)
+          (love.graphics.setColor .24 .24 .24)
           (love.graphics.rectangle :fill b.x b.y b.w b.h))
-        (do
-          (love.graphics.setColor 0.49 0.4 0.81)
-          (love.graphics.rectangle :fill b.x b.y b.w b.h))))
+        (love.graphics.draw (. _G.img b.name) b.x b.y )
+          
+          ))
   (love.graphics.setColor 1 1 1))
 
 (fn g.test_foods [foods]

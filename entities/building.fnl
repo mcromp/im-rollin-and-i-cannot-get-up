@@ -9,6 +9,7 @@
    :w obj.width
    :type :building
    :state e.state_enum.ok
+   :name obj.name
    :fade_out 0})
 
 e

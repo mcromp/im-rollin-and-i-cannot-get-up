@@ -43,7 +43,7 @@
                             :w b.w
                             :h b.h
                             : level
-                            :name :todo
+                            :name b.name
                             :state b.state
                             :fade_out b.fade_out}))))
        buildings))
