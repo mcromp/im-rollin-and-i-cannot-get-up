@@ -12,15 +12,18 @@
             "scaleInDock": 1
         },
         "map.tmx": {
-            "scale": 1.7079,
-            "selectedLayer": 12,
+            "scale": 0.1484,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 1980.5023713332162,
-                "y": 3434.3345629135197
+                "x": 2280.9973045822103,
+                "y": 3005.3908355795147
             }
         },
         "map.tmx#tileset": {
             "scaleInDock": 0.9009
+        },
+        "map.tmx#ts": {
+            "scaleInDock": 1
         },
         "ui_bg.tsx": {
             "scaleInDock": 0.1744,

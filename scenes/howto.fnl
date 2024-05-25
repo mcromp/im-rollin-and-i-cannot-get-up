@@ -23,6 +23,8 @@
   - Once you crash into enough buildings you will LEVEL UP
 
   - When you LEVEL UP you will LOSE POWER, so you'll need to EAT STRAWBERRIES to POWER UP again
+  
+  - PRESS ENTER TO PROCEED
 
   " font 0 0 _W.w))
 

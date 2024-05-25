@@ -32,11 +32,10 @@
       (food_anim:draw _G.img.food f.x f.y))))
 
 (fn g.player [p]
-  (local size (. player_size _Gstate.level))
-  (local px (- p.x (/ size 2)))
-  (local py (- p.y (/ size 2)))
-  (love.graphics.setColor 0 0 0)
-  (love.graphics.rectangle :fill px py size size))
+  (local size (. player_size _Gstate.level)) ; (local px (- p.x (/ size 2))) ; (local py (- p.y (/ size 2)))
+  (love.graphics.setColor 1 1 1)
+  (love.graphics.circle :fill p.x p.y size) ; (love.graphics.rectangle :fill px py size size)
+  )
 
 (fn make_shadow_text [x y m]
   (love.graphics.print m (+ x 1.5) y)
@@ -44,17 +43,43 @@
   (love.graphics.print m x (- y 1.5))
   (love.graphics.print m (- x 1.5) y))
 
-(var lvl_up_switch true)
-(var lvl_up_fade {:v 0})
+(var pwr_switch false)
+(var show_pwr false)
+(var lvl_up_switch false)
+(var show_lvl_up false)
 (fn g.hud [p]
   (love.graphics.setColor 0 0 0)
   (local xp "PWR XP ")
   (local per " % :: EAT THE STRAWBERRIES")
   (local xp_p (tostring (math.floor (* (/ p.xp (. xp_lvl _Gstate.level)) 100))))
+  (local full_pwr? (= xp_p :100))
   (local lk (tostring (. kill_lvl _Gstate.level)))
   (local food_count (.. (.. xp xp_p) per))
+  ;; level up splash
+  (when (and lvl_up_switch (not p.level_up?))
+    (set lvl_up_switch false)
+    (set show_lvl_up false))
+  (when (and (not lvl_up_switch) p.level_up?)
+    (set lvl_up_switch true)
+    (set show_lvl_up true)
+    (timer.after 1.5 (fn [] (set show_lvl_up false))))
+  (when show_lvl_up
+    (love.graphics.setColor 1 1 1)
+    (love.graphics.draw _G.img.lvl_up 100 200 0 2.5 2.5))
+  ;; power up info 
   (local powered_up_m "FULL PWR :: DESTROY THE BUILDINGS")
+  (when (and pwr_switch (not full_pwr?))
+    (set pwr_switch false)
+    (set show_pwr false))
+  (when show_pwr
+    (love.graphics.setColor 1 1 1)
+    (love.graphics.draw _G.img.full_pwr 100 200 0 2.5 2.5))
+  (when (and (not pwr_switch) full_pwr?)
+    (set pwr_switch true)
+    (set show_pwr true)
+    (timer.after 1 (fn [] (set show_pwr false))))
   (let [m (if (= xp_p :100) powered_up_m food_count)]
+    (love.graphics.setColor 0 0 0)
     (make_shadow_text 10 10 m)
     (love.graphics.setColor 1 1 1)
     (love.graphics.print m 10 10))

@@ -28,6 +28,7 @@
   (graphics.load)
   (love.audio.play _G.sfx.music)
   (_G.sfx.music:setVolume 0.5)
+  (_G.sfx.music:setLooping true)
   (set data (map_service.parse _G.map))
   (set buildings (map_service.get_buildings_from_scene_data data))
   (set foods (. (. data _Gstate.level) :food)))
