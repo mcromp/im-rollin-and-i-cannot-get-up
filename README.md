@@ -9,16 +9,17 @@ love .
 ```
 
 ### with a http server:
-a compiled-to-wasm build is included in the `/dist` folder, 
+a compiled-to-wasm build is included in the directory folder, 
 to run you'll need to serve the folder with an http server 
 #### With NodeJS and npx:
+this directory run:
 ```
-npx http-server dist
+npx http-server .
 ```
   Then open a web browser to `http://127.0.0.1:8080` 
 
   #### with Python:
-  navigate to `/dist` folder then run
+  this directory run:
   ```
   python -m http.server 8080
   ```
