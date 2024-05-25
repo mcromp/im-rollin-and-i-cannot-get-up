@@ -10,5 +10,5 @@
  :hit_dir_x 0
  :kills 0
  :level_up? false
- :xp 0
+ :xp 100
  :speed 3}

@@ -44,7 +44,7 @@
                    :w player_size})
   ;; handle level up
   (when (and (and (= player.kills lvl_kill) (not player.level_up?))
-             (not= _Gstate.level 5))
+             (not= _Gstate.level 3))
     (set player.level_up? true)
     (_G.sfx.music:pause)
     (love.audio.play _G.sfx.fanfare)
@@ -59,7 +59,7 @@
                    (set camera.scale (. lvl_c _Gstate.level)))))
   ;; goto win screenn
   (when (and (and (= player.kills lvl_kill) (not player.level_up?))
-             (= _Gstate.level 5))
+             (= _Gstate.level 3))
     (set _G.scene win_scene)
     (set _G.map nil)
     (_G.scene.load))

@@ -9,6 +9,7 @@
 (fn g.load []
   (local f _G.img.food)
   (local f_g (anim8.newGrid 32 32 (f:getWidth) (f:getHeight)))
+  (love.graphics.setLineWidth 20)
   (set food_anim (anim8.newAnimation (f_g :1-2 1) 0.4)))
 
 (fn g.update [dt]
@@ -16,14 +17,9 @@
 
 (fn g.test_buildings [buildings]
   (each [_ b (pairs buildings)]
-    (if (= b.state :dead)
-        (do
-          (love.graphics.setColor .24 .24 .24)
-          (love.graphics.rectangle :fill b.x b.y b.w b.h))
-        (love.graphics.draw (. _G.img b.name) b.x b.y )
-          
-          ))
-  (love.graphics.setColor 1 1 1))
+    (when (not= b.state :dead)
+      (love.graphics.draw (. _G.img b.name) b.x b.y)
+      (love.graphics.setColor 1 1 1))))
 
 (fn g.test_foods [foods]
   (love.graphics.setColor 1 1 1)
@@ -32,10 +28,11 @@
       (food_anim:draw _G.img.food f.x f.y))))
 
 (fn g.player [p]
-  (local size (. player_size _Gstate.level)) ; (local px (- p.x (/ size 2))) ; (local py (- p.y (/ size 2)))
+  (local size (. player_size _Gstate.level))
+  (local px (- p.x (/ size 2)))
+  (local py (- p.y (/ size 2)))
   (love.graphics.setColor 1 1 1)
-  (love.graphics.circle :fill p.x p.y size) ; (love.graphics.rectangle :fill px py size size)
-  )
+  (love.graphics.rectangle :fill px py size size))
 
 (fn make_shadow_text [x y m]
   (love.graphics.print m (+ x 1.5) y)
@@ -94,7 +91,7 @@
   (love.graphics.setColor 1 1 1))
 
 (fn g.track [t]
-  (love.graphics.setColor 0.39 0.2 0.51)
+  (love.graphics.setColor 0.25 0.25 0.25)
   (let [x _center.x
         y _center.y
         rx (/ t.r t.skew)

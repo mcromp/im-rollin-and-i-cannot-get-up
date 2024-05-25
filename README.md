@@ -1,4 +1,13 @@
-# CREDITS 
+# Running
+you can use:
+```
+love .
+```
+to run with love directly
+
+
+
+# CREDITS/ASSETS
 
 * [Merriweather Font](https://fonts.google.com/specimen/Merriweather) Licensed under the Open Font License
 * [LÖVE](https://love2d.org) Copyright © 2006-2018 LOVE Development Team, distributed under the zlib license

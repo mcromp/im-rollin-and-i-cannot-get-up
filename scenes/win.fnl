@@ -7,8 +7,8 @@
   (love.audio.play _G.sfx.fanfare))
 
 (fn scene.draw []
-  (love.graphics.print "the whole city is destroyed, I hope you're happy" 100
-                       100)
+  (love.graphics.print "you win good job, but the whole city is destroyed..."
+                       100 100)
   (love.graphics.print "press esc to exit" 100 400))
 
 (fn scene.update [])
