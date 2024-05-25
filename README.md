@@ -8,24 +8,6 @@ first install love, then in this directory run:
 love .
 ```
 
-### with a http server:
-a compiled-to-wasm build is included in the directory folder, 
-to run you'll need to serve the folder with an http server 
-#### With NodeJS and npx:
-this directory run:
-```
-npx http-server .
-```
-  Then open a web browser to `http://127.0.0.1:8080` 
-
-  #### with Python:
-  this directory run:
-  ```
-  python -m http.server 8080
-  ```
-Then open a web browser to `http://localhost:8080/`
-
-
 # Credits/Assets/Deps
 
 - [mage-city-arcanos tileset](https://opengameart.org/content/mage-city-arcanos) Hyptosis, CC0 License
