@@ -16,6 +16,7 @@
 (local lvl_kills (. (. (require :levels.fnl) :data) :kills))
 (local xps (. (. (require :levels.fnl) :data) :xp))
 (local lvl_c (. (. (require :levels.fnl) :data) :camera))
+(local win_scene (require :scenes/win.fnl))
 
 ;; data from map for levels
 (var data {})
@@ -56,6 +57,12 @@
                    (set foods (. (. data new_level) :food))
                    (love.audio.play _G.sfx.grow)
                    (set camera.scale (. lvl_c _Gstate.level)))))
+  ;; goto win screenn
+  (when (and (and (= player.kills lvl_kill) (not player.level_up?))
+             (= _Gstate.level 5))
+    (set _G.scene win_scene)
+    (set _G.map nil)
+    (_G.scene.load))
   ;; player movement 
   (let [f (. player_movement_service player.state)]
     (if (and f (not player.level_up?)) (f player track dt)))
@@ -102,6 +109,8 @@
   (graphics.test_foods foods))
 
 (fn scene.keypressed [k]
+  (when (or (= k :q))
+    (set _G.map nil))
   (when (= k :w)
     (set player.kills (+ player.kills 1))))
 

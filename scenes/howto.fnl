@@ -4,7 +4,7 @@
 
 (var font {})
 (fn scene.load []
-  (set font (love.graphics.newFont 32))
+  (set font (love.graphics.newFont 24))
   (_G.sfx.howto:setLooping true)
   (love.audio.play _G.sfx.howto))
 
@@ -23,17 +23,16 @@
   - Once you crash into enough buildings you will LEVEL UP
 
   - When you LEVEL UP you will LOSE POWER, so you'll need to EAT STRAWBERRIES to POWER UP again
+
+  # CONTROLS #
+  - UP/W   larger radius
+  - DOWN/S smaller radius
   
   - PRESS ENTER TO PROCEED
 
   " font 0 0 _W.w))
 
-(local speed 10)
-(var switch true)
-(fn scene.update [dt]
-  (if switch (set v (+ v (* dt speed))) (set v (- v (* dt speed))))
-  (when (> v 25) (set switch false))
-  (when (< v -15) (set switch true)))
+(fn scene.update [])
 
 (fn scene.keypressed [k]
   (when (= k :return)
