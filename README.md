@@ -1,3 +1,4 @@
+A game-jam game written in fennel (lisp lua language) for the Spring Lisp Game Jam 2024
 # Running
 ### with love2d:
 
