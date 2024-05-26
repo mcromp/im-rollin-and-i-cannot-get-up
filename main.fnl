@@ -15,7 +15,6 @@
   (set _G.scene scenes.title)
   (_G.scene.load))
 
-
 (fn love.draw []
   (love.graphics.push)
   (when (and _G.map player) (camera.draw player))

@@ -3,17 +3,23 @@
 (local xp_lvl (. (. (require :levels.fnl) :data) :xp))
 (local kill_lvl (. (. (require :levels.fnl) :data) :kills))
 (local player_size (. (. (require :levels.fnl) :data) :player_size))
+(local player_scale (. (. (require :levels.fnl) :data) :player_img))
 (local camera (require :services/camera.fnl))
 (var food_anim {})
+(var player_anim {})
 
 (fn g.load []
+  (love.graphics.setLineWidth 20)
   (local f _G.img.food)
   (local f_g (anim8.newGrid 32 32 (f:getWidth) (f:getHeight)))
-  (love.graphics.setLineWidth 20)
-  (set food_anim (anim8.newAnimation (f_g :1-2 1) 0.4)))
+  (set food_anim (anim8.newAnimation (f_g :1-2 1) 0.4))
+  (local p _G.img.player)
+  (local p_g (anim8.newGrid 64 64 (p:getWidth) (p:getHeight)))
+  (set player_anim (anim8.newAnimation (p_g :1-2 1) 0.5)))
 
 (fn g.update [dt]
-  (when food_anim (food_anim:update dt)))
+  (when food_anim (food_anim:update dt)
+    (when player_anim (player_anim:update dt))))
 
 (fn g.test_buildings [buildings]
   (each [_ b (pairs buildings)]
@@ -29,10 +35,12 @@
 
 (fn g.player [p]
   (local size (. player_size _Gstate.level))
+  (local scale (. player_scale _Gstate.level))
   (local px (- p.x (/ size 2)))
   (local py (- p.y (/ size 2)))
   (love.graphics.setColor 1 1 1)
-  (love.graphics.rectangle :fill px py size size))
+  (player_anim:draw _G.img.player px py 0 scale scale) ;  
+  )
 
 (fn make_shadow_text [x y m]
   (love.graphics.print m (+ x 1.5) y)

@@ -17,6 +17,7 @@
         :full_pwr (love.graphics.newImage :assets/img/full_pwr.png)
         :title (love.graphics.newImage :assets/img/title.png)
         :lvl_up (love.graphics.newImage :assets/img/lvl_up.png)
+        :player (love.graphics.newImage :assets/img/player.png)
         :a (love.graphics.newImage :assets/img/buildings/a_3x3.png)
         :b (love.graphics.newImage :assets/img/buildings/b_3x3.png)
         :c (love.graphics.newImage :assets/img/buildings/c_4x3.png)
