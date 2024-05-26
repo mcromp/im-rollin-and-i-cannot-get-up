@@ -13,10 +13,7 @@
   (startup)
   ;; load scene
   (set _G.scene scenes.title)
-  (_G.scene.load)
-  ;; start a thread listening on stdin
-  (: (love.thread.newThread "require('love.event')
-while 1 do love.event.push('stdin', io.read('*line')) end") :start))
+  (_G.scene.load))
 
 
 (fn love.draw []
