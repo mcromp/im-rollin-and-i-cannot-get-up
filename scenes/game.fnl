@@ -108,10 +108,6 @@
   (graphics.player player)
   (graphics.test_foods foods))
 
-(fn scene.keypressed [k]
-  (when (or (= k :q))
-    (set _G.map nil))
-  (when (= k :w)
-    (set player.kills (+ player.kills 1))))
+(fn scene.keypressed [k])
 
 scene
